@@ -1,0 +1,223 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Rent a Car Documentation",
+		"description": "The Car Rental API provides a standardized and efficient way to interact with the car rental systems of multiple companies, enabling users to search, compare prices, make reservations, and manage their car rentals in a simplified manner.",
+		"version": "1.0.0",
+		"contact": {
+			"email": "suporte@rentacar.com"
+		}
+	},
+	"paths": {
+		"/categories": {
+			"post": {
+				"tags": [
+					"Category"
+				],
+				"summary": "Create a Category",
+				"description": "Create a new category",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/Category"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Category has been created successfully"
+					},
+					"500": {
+						"description": "Category already exists"
+					}
+				}
+			},
+			"get": {
+				"tags": [
+					"Category"
+				],
+				"summary": "List categories",
+				"description": "List all registered categories",
+				"responses": {
+					"200": {
+						"description": "Sucessfully returned a list of categories",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"name": {
+												"type": "string"
+											},
+											"description": {
+												"type": "string"
+											},
+											"created_at": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/categories/import": {
+			"post": {
+				"tags": [
+					"Category"
+				],
+				"summary": "Upload new categories",
+				"description": "Upload new categories using a csv file",
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Categories has been created successfully"
+					},
+					"400": {
+						"description": "Bad Request - file not found"
+					}
+				}
+			}
+		},
+		"/specifications": {
+			"post": {
+				"tags": [
+					"Specifications"
+				],
+				"summary": "Create a Specification",
+				"description": "Create a new Specification",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/definitions/Specification"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Specification has been created successfully"
+					},
+					"500": {
+						"description": "Specification already exists"
+					}
+				}
+			},
+			"get": {
+				"tags": [
+					"Specifications"
+				],
+				"summary": "List specifications",
+				"description": "List all registered specifications",
+				"responses": {
+					"200": {
+						"description": "Sucessfully returned a list of specifications",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string"
+											},
+											"name": {
+												"type": "string"
+											},
+											"description": {
+												"type": "string"
+											},
+											"created_at": {
+												"type": "string"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Category": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				}
+			}
+		},
+		"Specification": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"description": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
