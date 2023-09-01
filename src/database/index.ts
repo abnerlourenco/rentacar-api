@@ -6,8 +6,8 @@ import { Specification } from '../modules/cars/entities/Specification';
 
 export const connection = new DataSource({
   type: 'postgres',
-  host: 'postgres',
-  // host: 'localhost',
+  // host: 'postgres',
+  host: 'localhost',
   port: 5432,
   database: 'rentacar',
   username: 'docker',
