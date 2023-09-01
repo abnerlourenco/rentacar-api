@@ -6,7 +6,7 @@ import { type ICategoryRepository } from '../../repositories/ICategoriesReposito
 @injectable()
 class ListCategoriesUseCase {
   constructor (
-    @inject('categoriesRepository')
+    @inject('CategoriesRepository')
     private readonly categoriesRepository: ICategoryRepository
   ) {}
 

@@ -12,7 +12,7 @@ class ListCategoriesController {
 
       return response.status(200).json(all);
     } catch (error) {
-      return response.status(404).json({ error: error.message });
+      return response.json({ error: error.message });
     }
   }
 }

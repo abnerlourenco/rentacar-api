@@ -10,7 +10,7 @@ class ImportCategoriesController {
     const importCategoriesUseCase = container.resolve(ImportCategoriesUseCase);
 
     if (!file) {
-      return response.status(400).json({ message: 'Bad Request - file not found' });
+      return response.json({ message: 'Bad Request - file not found' });
     }
 
     await importCategoriesUseCase.execute(file);
