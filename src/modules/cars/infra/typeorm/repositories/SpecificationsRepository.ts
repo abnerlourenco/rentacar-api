@@ -1,8 +1,8 @@
 import { type Repository } from 'typeorm';
 
-import { connection } from '../../../../database';
-import { Specification } from '../../entities/Specification';
-import { type ISpecificationRepository, type ICreateSpecificationDTO } from '../ISpecificationsRepository';
+import { connection } from '../../../../../shared/typeorm';
+import { type ICreateSpecificationDTO, type ISpecificationRepository } from '../../../repositories/ISpecificationsRepository';
+import { Specification } from '../entities/Specification';
 
 class SpecificationsRepository implements ISpecificationRepository {
   private readonly repository: Repository<Specification>;

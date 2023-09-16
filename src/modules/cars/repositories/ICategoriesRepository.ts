@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/method-signature-style */
-import { type Category } from '../entities/Category';
+import { type Category } from '../infra/typeorm/entities/Category';
 
 interface ICreateCategoryDTO {
   name: string

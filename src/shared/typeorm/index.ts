@@ -1,8 +1,8 @@
 import { DataSource } from 'typeorm';
 
-import { User } from '../modules/accounts/entities/Users';
-import { Category } from '../modules/cars/entities/Category';
-import { Specification } from '../modules/cars/entities/Specification';
+import { User } from '../../modules/accounts/infra/typeorm/entities/Users';
+import { Category } from '../../modules/cars/infra/typeorm/entities/Category';
+import { Specification } from '../../modules/cars/infra/typeorm/entities/Specification';
 
 export const connection = new DataSource({
   type: 'postgres',
@@ -13,7 +13,7 @@ export const connection = new DataSource({
   username: 'docker',
   password: 'admin',
   entities: [Category, Specification, User],
-  migrations: ['./src/database/migrations/*.ts']
+  migrations: ['./migrations/*.ts']
 });
 
 connection.initialize()

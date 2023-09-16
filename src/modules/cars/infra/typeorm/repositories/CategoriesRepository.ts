@@ -1,8 +1,8 @@
 import { type Repository } from 'typeorm';
 
-import { connection } from '../../../../database';
-import { Category } from '../../entities/Category';
-import { type ICategoryRepository, type ICreateCategoryDTO } from '../ICategoriesRepository';
+import { connection } from '../../../../../shared/typeorm';
+import { type ICategoryRepository, type ICreateCategoryDTO } from '../../../repositories/ICategoriesRepository';
+import { Category } from '../entities/Category';
 
 class CategoriesRepository implements ICategoryRepository {
   private readonly repository: Repository<Category>;
