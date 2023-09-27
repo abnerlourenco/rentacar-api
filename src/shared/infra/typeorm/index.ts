@@ -1,9 +1,5 @@
 import { DataSource } from 'typeorm';
 
-import { User } from '../../modules/accounts/infra/typeorm/entities/Users';
-import { Category } from '../../modules/cars/infra/typeorm/entities/Category';
-import { Specification } from '../../modules/cars/infra/typeorm/entities/Specification';
-
 export const connection = new DataSource({
   type: 'postgres',
   // host: 'postgres',
@@ -12,8 +8,8 @@ export const connection = new DataSource({
   database: 'rentacar',
   username: 'docker',
   password: 'admin',
-  entities: [Category, Specification, User],
-  migrations: ['./migrations/*.ts']
+  entities: ['./src/modules/**/entities/*.ts'],
+  migrations: ['./src/shared/infra/typeorm/migrations/*.ts']
 });
 
 connection.initialize()
