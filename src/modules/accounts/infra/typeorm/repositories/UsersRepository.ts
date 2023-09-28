@@ -1,6 +1,6 @@
 import { type Repository } from 'typeorm';
 
-import { connection } from '../../../../../shared/typeorm';
+import { connection } from '../../../../../shared/infra/typeorm';
 import { type ICreateUserDTO } from '../../../dtos/ICreateUserDTO';
 import { type IUsersRepository } from '../../../repositories/IUsersRepository';
 import { User } from '../entities/Users';

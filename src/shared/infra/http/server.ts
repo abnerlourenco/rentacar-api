@@ -2,7 +2,7 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 
-import '../../typeorm';
+import '../typeorm';
 import '../../container';
 
 import swaggerFile from '../../../swagger.json';

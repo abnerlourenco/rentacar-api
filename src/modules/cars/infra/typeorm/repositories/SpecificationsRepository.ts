@@ -1,6 +1,6 @@
 import { type Repository } from 'typeorm';
 
-import { connection } from '../../../../../shared/typeorm';
+import { connection } from '../../../../../shared/infra/typeorm';
 import { type ICreateSpecificationDTO, type ISpecificationRepository } from '../../../repositories/ISpecificationsRepository';
 import { Specification } from '../entities/Specification';
 

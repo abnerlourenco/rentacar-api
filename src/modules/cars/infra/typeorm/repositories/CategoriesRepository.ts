@@ -1,6 +1,6 @@
 import { type Repository } from 'typeorm';
 
-import { connection } from '../../../../../shared/typeorm';
+import { connection } from '../../../../../shared/infra/typeorm';
 import { type ICategoryRepository, type ICreateCategoryDTO } from '../../../repositories/ICategoriesRepository';
 import { Category } from '../entities/Category';
 
