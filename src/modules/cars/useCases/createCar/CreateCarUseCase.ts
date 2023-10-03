@@ -1,11 +1,14 @@
+import { inject, injectable } from 'tsyringe';
 
 import { AppError } from '../../../../shared/errors/AppError';
 import { type ICreateCarDTO } from '../../dtos/ICreateCarDTO';
 import { type Car } from '../../infra/typeorm/entities/Car';
 import { type ICarsRepository } from '../../repositories/ICarsRepository';
 
+@injectable()
 class CreateCarUseCase {
   constructor (
+    @inject('CarsRepository')
     private readonly carsRepository: ICarsRepository
   ) {}
 
