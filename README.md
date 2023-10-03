@@ -3,13 +3,19 @@
 ## Cadastro de carro
 >**RF**
 >- Deve ser possível cadastrar um novo carro
->- Deve ser possível listar todas as categorias.
 
 >**RN**
 >- Não pode ser cadastrar um carro com a placa já existente.
->- Não deve ser possível alterar a placa de um carro já cadastrado.
+
 >- O carro deve ser cadastrado como disponível por padrão.
 >- Não deve ser possível cadastrar um carro, caso usuário não for admin.
+
+## Alterar cadastro de carro
+>**RF**
+>- Deve ser possível alterar o carro cadastrado;
+
+>**RN**
+>- Não deve ser possível alterar a placa de um carro já cadastrado.
 
 ## Listagem de carros
 >**RF**
