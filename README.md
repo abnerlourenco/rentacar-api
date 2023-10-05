@@ -23,7 +23,9 @@
 >- Deve ser possível listar todos os carros disponíveis pelo nome da categoria.
 >- Deve ser possível listar todos os carros disponíveis pelo nome da marca.
 >- Deve ser possível listar todos os carros disponíveis pelo nome do carro.
->- Deve ser possível listar todos os carros disponíveis em um período.
+
+
+<!-- >- Deve ser possível listar todos os carros disponíveis em um período. -->
 
 >**RN**
 >- Não deve ser necessário estar logado para listar os carros.
