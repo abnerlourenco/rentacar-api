@@ -2,6 +2,7 @@
 import { Router } from 'express';
 
 import { CreateCarController } from '../../../../modules/cars/useCases/createCar/CreateCarController';
+import { CreateCarSpecificationController } from '../../../../modules/cars/useCases/createCarSpecification/CreateCarSpecificationController';
 import { ListAvailableCarsController } from '../../../../modules/cars/useCases/listAvailableCars/ListAvailableCarsController';
 import { ListCarsController } from '../../../../modules/cars/useCases/listCars/ListCarsController';
 import { ensureAdmin } from '../middleware/ensureAdmin';
@@ -12,19 +13,25 @@ const carsRoutes = Router();
 const createCarController = new CreateCarController();
 const listAvailableCarsController = new ListAvailableCarsController();
 const listCarsController = new ListCarsController();
-
-carsRoutes.post('/',
-  ensureAuthenticated,
-  ensureAdmin,
-  createCarController.handle
-);
+const createCarSpecificationController = new CreateCarSpecificationController();
 
 carsRoutes.get('/available', listAvailableCarsController.handle);
 
+// a partir daqui, necessita autenticação do usuário
+carsRoutes.use(ensureAuthenticated);
+// a partir daqui, necessita ser admin
+carsRoutes.use(ensureAdmin);
+
+carsRoutes.post('/',
+  createCarController.handle
+);
+
 carsRoutes.get('/list-all',
-  ensureAuthenticated,
-  ensureAdmin,
   listCarsController.handle
+);
+
+carsRoutes.post('/specifications/:id',
+  createCarSpecificationController.handle
 );
 
 export { carsRoutes };
