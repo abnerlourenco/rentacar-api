@@ -58,7 +58,7 @@ carsRoutes.delete('/images/:id',
   deleteCarImageController.handle
 );
 
-carsRoutes.get('/imagens',
+carsRoutes.get('/:id/imagens',
   listCarImagesController.handle
 );
 

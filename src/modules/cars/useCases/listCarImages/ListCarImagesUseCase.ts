@@ -15,8 +15,14 @@ class ListCarImagesUseCase {
     private readonly carsRepository: ICarsRepository
   ) {}
 
-  async execute (): Promise<CarImage[]> {
-    const images = await this.carsImagesRepository.list();
+  async execute (car_id: string): Promise<CarImage[]> {
+    const carExists = await this.carsRepository.findById(car_id);
+
+    if (!carExists) {
+      throw new AppError('Car not exists');
+    }
+
+    const images = await this.carsImagesRepository.list(car_id);
 
     if (!images) {
       throw new AppError('No images found');
