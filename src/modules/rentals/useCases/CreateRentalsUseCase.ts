@@ -1,4 +1,5 @@
 import { AppError } from '../../../shared/errors/AppError';
+import { type IDateProvider } from '../../../shared/providers/DateProvider/IDateProvider';
 import { type Rental } from '../infra/typeorm/entities/Rental';
 import { type IRentalsRepository } from '../repositories/IRentalsRepository';
 
@@ -10,7 +11,8 @@ interface IRequest {
 
 class CreateRentalsUseCase {
   constructor (
-    private readonly rentalsRepository: IRentalsRepository
+    private readonly rentalsRepository: IRentalsRepository,
+    private readonly dateProvider: IDateProvider
   ) {}
 
   async execute ({
@@ -18,6 +20,8 @@ class CreateRentalsUseCase {
     expected_return_date,
     user_id
   }: IRequest): Promise<Rental> {
+    const minimalRentalHour = 24;
+
     const carNotAvailable = await this.rentalsRepository.findOpenRentalByCar(car_id);
 
     if (carNotAvailable) {
@@ -31,6 +35,17 @@ class CreateRentalsUseCase {
     }
 
     // Duração minima de 24h
+    const dateNow = this.dateProvider.newDate();
+
+    const startRentalDate = this.dateProvider.convertToUTC(dateNow);
+
+    const expectedReturnDate = this.dateProvider.convertToUTC(expected_return_date);
+
+    const compareDate = this.dateProvider.compareInHours(startRentalDate, expectedReturnDate);
+
+    if (compareDate < minimalRentalHour) {
+      throw new AppError('Minimum rental duration must be 24 hours');
+    }
 
     const rental = await this.rentalsRepository.create({
       car_id,
