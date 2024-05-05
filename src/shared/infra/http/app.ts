@@ -2,6 +2,8 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 
+import 'dotenv/config';
+
 import '../typeorm';
 import '../../container';
 
