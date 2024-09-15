@@ -1,9 +1,10 @@
 import { inject, injectable } from 'tsyringe';
 
-import { IDateProvider } from '../../../shared/container/providers/DateProvider/IDateProvider';
-import { AppError } from '../../../shared/errors/AppError';
-import { type Rental } from '../infra/typeorm/entities/Rental';
-import { type IRentalsRepository } from '../repositories/IRentalsRepository';
+import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider';
+import { AppError } from '../../../../shared/errors/AppError';
+import { ICarsRepository } from '../../../cars/repositories/ICarsRepository';
+import { type Rental } from '../../infra/typeorm/entities/Rental';
+import { IRentalsRepository } from '../../repositories/IRentalsRepository';
 
 interface IRequest {
   car_id: string
@@ -17,7 +18,9 @@ class CreateRentalUseCase {
     @inject('RentalsRepository')
     private readonly rentalsRepository: IRentalsRepository,
     @inject('DayJsDateProvider')
-    private readonly dateProvider: IDateProvider
+    private readonly dateProvider: IDateProvider,
+    @inject('CarsRepository')
+    private readonly carsRepository: ICarsRepository
   ) {}
 
   async execute ({
@@ -42,11 +45,7 @@ class CreateRentalUseCase {
     // Duração minima de 24h
     const dateNow = this.dateProvider.newDate();
 
-    const startRentalDate = this.dateProvider.convertToUTC(dateNow);
-
-    const expectedReturnDate = this.dateProvider.convertToUTC(expected_return_date);
-
-    const compareDate = this.dateProvider.compareInHours(startRentalDate, expectedReturnDate);
+    const compareDate = this.dateProvider.compareInHours(dateNow, expected_return_date);
 
     if (compareDate < minimalRentalHour) {
       throw new AppError('Minimum rental duration must be 24 hours');
@@ -57,6 +56,8 @@ class CreateRentalUseCase {
       expected_return_date,
       user_id
     });
+
+    await this.carsRepository.updateAvailable(car_id, false);
 
     return rental;
   }
