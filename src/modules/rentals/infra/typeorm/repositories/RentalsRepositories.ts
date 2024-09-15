@@ -15,12 +15,17 @@ class RentalsRepository implements IRentalsRepository {
   async create ({
     car_id,
     expected_return_date,
-    user_id
+    user_id,
+    end_date,
+    id,
+    expected_total_amount
   }: ICreateRentalDTO): Promise<Rental> {
     const rental = this.repository.create({
       user_id,
       car_id,
-      expected_return_date
+      expected_return_date,
+      end_date,
+      id
     });
 
     await this.repository.save(rental);
