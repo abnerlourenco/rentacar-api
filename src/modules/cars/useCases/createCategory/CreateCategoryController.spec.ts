@@ -7,6 +7,10 @@ import { connection } from '../../../../shared/infra/typeorm';
 
 describe('Create Category controller', () => {
   beforeAll(async () => {
+    if (!connection.isInitialized) {
+      await connection.initialize();
+    }
+
     const id = uuidv4();
     const password = await hash('admin', 8);
 
