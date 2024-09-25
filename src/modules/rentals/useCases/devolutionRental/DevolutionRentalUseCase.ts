@@ -22,7 +22,7 @@ class DevolutionRentalUseCase {
     private readonly dateProvider: IDateProvider
   ) {}
 
-  async execute ({ id }: IRequest): Promise<[Rental, string]> {
+  async execute ({ id }: IRequest): Promise<Rental> {
     const rental = await this.rentalsRepository.findById(id);
     const minimum_daily = 1; // one day
 
@@ -65,16 +65,13 @@ class DevolutionRentalUseCase {
 
     total_daily = ((daily * car.daily_rate) + calculate_fine);
 
-    const extrato = (`(${daily} dias * ${car.daily_rate} diária)=${daily * car.daily_rate} + (${delay} * ${car.fine_amount})=${calculate_fine} \n 
-      de Multa - Total geral = ${total_daily}`);
-
     rental.end_date = endDateRental;
     rental.total = total_daily;
 
     await this.rentalsRepository.create(rental);
     await this.carsRepository.updateAvailable(rental.car_id, true);
 
-    return [rental, extrato];
+    return rental;
   }
 }
 
