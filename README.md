@@ -79,6 +79,15 @@ multa proporcional aos dias de atraso.
 >- O Usuário deve estar logado na aplicação.
 
 
+## Listagem de Alugueis para usuario
+
+>**RF**
+>- Deve ser possível realizar a busca de todos os aluguéis para o usuário
+
+>**RN**
+>- O Usuário deve estar logado na aplicação
+
+
 <br/>
 <br/>
 

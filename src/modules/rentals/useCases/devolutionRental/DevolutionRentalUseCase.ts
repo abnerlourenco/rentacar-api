@@ -18,11 +18,11 @@ class DevolutionRentalUseCase {
     private readonly rentalsRepository: IRentalsRepository,
     @inject('CarsRepository')
     private readonly carsRepository: ICarsRepository,
-    @inject('DayjsDateProvider')
+    @inject('DayJsDateProvider')
     private readonly dateProvider: IDateProvider
   ) {}
 
-  async execute ({ id, user_id }: IRequest): Promise<Rental> {
+  async execute ({ id }: IRequest): Promise<[Rental, string]> {
     const rental = await this.rentalsRepository.findById(id);
     const minimum_daily = 1; // one day
 
@@ -30,17 +30,21 @@ class DevolutionRentalUseCase {
       throw new AppError('Rental not found');
     }
 
+    if (rental.end_date) {
+      throw new AppError('Rental alredy is devolution');
+    }
+
     const car = await this.carsRepository.findById(rental.car_id);
     if (!car) {
       throw new AppError('Car not found');
     }
 
-    // Verificar o tempo de aluguel
-    const dateNow = this.dateProvider.newDate();
+    // Data final do aluguel
+    const endDateRental = this.dateProvider.newDate();
 
     let daily = this.dateProvider.compareInDays(
       rental.start_date,
-      dateNow
+      endDateRental
     );
 
     if (daily <= 0) {
@@ -48,8 +52,8 @@ class DevolutionRentalUseCase {
     }
 
     const delay = this.dateProvider.compareInDays(
-      dateNow,
-      rental.expected_return_date
+      rental.expected_return_date,
+      endDateRental
     );
 
     let total_daily = 0;
@@ -61,13 +65,16 @@ class DevolutionRentalUseCase {
 
     total_daily = ((daily * car.daily_rate) + calculate_fine);
 
-    rental.end_date = this.dateProvider.newDate();
+    const extrato = (`(${daily} dias * ${car.daily_rate} diária)=${daily * car.daily_rate} + (${delay} * ${car.fine_amount})=${calculate_fine} \n 
+      de Multa - Total geral = ${total_daily}`);
+
+    rental.end_date = endDateRental;
     rental.total = total_daily;
 
     await this.rentalsRepository.create(rental);
     await this.carsRepository.updateAvailable(rental.car_id, true);
 
-    return rental;
+    return [rental, extrato];
   }
 }
 
