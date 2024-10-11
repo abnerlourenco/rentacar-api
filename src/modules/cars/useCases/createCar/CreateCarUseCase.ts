@@ -22,7 +22,7 @@ class CreateCarUseCase {
     category_id
   }: ICreateCarDTO): Promise<Car> {
     const carAlreadyExists = await this.carsRepository.findByLicensePlate(license_plate);
-
+    console.log(carAlreadyExists);
     if (carAlreadyExists) {
       throw new AppError('Car already exists');
     }
