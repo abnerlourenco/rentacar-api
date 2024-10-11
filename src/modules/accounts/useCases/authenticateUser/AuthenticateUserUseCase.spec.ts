@@ -33,12 +33,11 @@ describe('Autenticar usuário', () => {
   });
 
   it('should not be able to authenticate an not exists user', async () => {
-    void expect(async () => {
-      await authenticateUserUseCase.execute({
-        email: 'false@example.com',
-        password: '1234'
-      });
-    }).rejects.toBeInstanceOf(AppError);
+    await expect(authenticateUserUseCase.execute({
+      email: 'false@example.com',
+      password: '1234'
+    })
+    ).rejects.toEqual(new AppError('Email or password incorrect!', 401));
   });
 
   it('should not be able to authenticate user with invalid password', async () => {
@@ -50,11 +49,10 @@ describe('Autenticar usuário', () => {
     };
     await createUserUseCase.execute(user);
 
-    void expect(async () => {
-      await authenticateUserUseCase.execute({
-        email: user.email,
-        password: '4321'
-      });
-    }).rejects.toBeInstanceOf(AppError);
+    await expect(authenticateUserUseCase.execute({
+      email: user.email,
+      password: '4321'
+    })
+    ).rejects.toEqual(new AppError('Email or password incorrect!', 401));
   });
 });

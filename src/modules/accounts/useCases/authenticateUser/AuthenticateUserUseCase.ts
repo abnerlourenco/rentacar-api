@@ -35,7 +35,7 @@ class AuthenticateUserUseCase {
     const passwordCompare = await compare(password, user.password);
 
     if (!passwordCompare) {
-      throw new AppError('Email or password incorrect', 401);
+      throw new AppError('Email or password incorrect!', 401);
     }
 
     const token = sign({}, '8a9c48b47ef1fcab5dadad189428e2fe', {

@@ -5,7 +5,7 @@ export const connection = new DataSource({
   // host: 'postgres',
   host: 'localhost',
   port: 5432,
-  database: 'rentacar',
+  database: process.env.NODE_ENV === 'test' ? 'rentacar_test' : 'rentacar',
   username: 'docker',
   password: 'admin',
   entities: ['./src/modules/**/entities/*.ts'],
@@ -14,7 +14,9 @@ export const connection = new DataSource({
 
 connection.initialize()
   .then(() => {
-    console.log('Data Source has been initialized successfully.');
+    process.env.NODE_ENV === 'test'
+      ? console.log('Data Source Teste has been initialized successfully.')
+      : console.log('Data Source has been initialized successfully.');
   })
   .catch((err) => {
     console.error('Error during Data Source initialization:', err);
