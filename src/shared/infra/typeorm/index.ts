@@ -2,8 +2,8 @@ import { DataSource } from 'typeorm';
 
 export const connection = new DataSource({
   type: 'postgres',
-  // host: 'postgres',
-  host: 'localhost',
+  host: 'postgres',
+  // host: 'localhost',
   port: 5432,
   database: process.env.NODE_ENV === 'test' ? 'rentacar_test' : 'rentacar',
   username: 'docker',
