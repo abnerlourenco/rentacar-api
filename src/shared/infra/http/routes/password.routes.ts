@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import { SendForgotPassowordMailController } from '../../../../modules/accounts/useCases/sendForgotPassowordMail/SendForgotPassowordMailController';
+import { SendForgotPasswordMailController } from '../../../../modules/accounts/useCases/sendForgotPasswordMail/SendForgotPasswordMailController';
 
 const passwordRoutes = Router();
 
-const sendForgotPasswordMailController = new SendForgotPassowordMailController();
+const sendForgotPasswordMailController = new SendForgotPasswordMailController();
 
 passwordRoutes.post('/forgot', sendForgotPasswordMailController.handle);
 

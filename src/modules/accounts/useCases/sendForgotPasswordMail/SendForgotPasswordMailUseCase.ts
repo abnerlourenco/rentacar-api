@@ -8,7 +8,7 @@ import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { IUsersTokensRepository } from '../../repositories/IUsersTokensRepository';
 
 @injectable()
-class SendForgotPassowordMailUseCase {
+class SendForgotPasswordMailUseCase {
   constructor (
     @inject('UsersRepository')
     private readonly usersRepository: IUsersRepository,
@@ -57,4 +57,4 @@ class SendForgotPassowordMailUseCase {
   }
 }
 
-export { SendForgotPassowordMailUseCase };
+export { SendForgotPasswordMailUseCase };

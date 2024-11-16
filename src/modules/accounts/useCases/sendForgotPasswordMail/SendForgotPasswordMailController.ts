@@ -1,13 +1,13 @@
 import { type Request, type Response } from 'express';
 import { container } from 'tsyringe';
 
-import { SendForgotPassowordMailUseCase } from './SendForgotPassowordMailUseCase';
+import { SendForgotPasswordMailUseCase } from './SendForgotPasswordMailUseCase';
 
-class SendForgotPassowordMailController {
+class SendForgotPasswordMailController {
   async handle (request: Request, response: Response): Promise<Response> {
     const { email } = request.body;
 
-    const sendForgotPasswordMailUseCase = container.resolve(SendForgotPassowordMailUseCase);
+    const sendForgotPasswordMailUseCase = container.resolve(SendForgotPasswordMailUseCase);
 
     await sendForgotPasswordMailUseCase.execute(email);
 
@@ -15,4 +15,4 @@ class SendForgotPassowordMailController {
   }
 }
 
-export { SendForgotPassowordMailController };
+export { SendForgotPasswordMailController };
