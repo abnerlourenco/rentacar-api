@@ -4,6 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider';
 import { IMailProvider } from '../../../../shared/container/providers/MailProvider/IMailProvider';
+import { AppError } from '../../../../shared/errors/AppError';
 import { IUsersRepository } from '../../repositories/IUsersRepository';
 import { IUsersTokensRepository } from '../../repositories/IUsersTokensRepository';
 
@@ -26,7 +27,7 @@ class SendForgotPasswordMailUseCase {
     const templatePath = resolve(__dirname, '..', '..', 'views', 'emails', 'forgotPassword.hbs');
 
     if (!user) {
-      throw new Error('User does not exist!');
+      throw new AppError('User does not exist!');
     }
 
     const token = uuidV4();
@@ -40,7 +41,7 @@ class SendForgotPasswordMailUseCase {
     });
 
     if (!process.env.FORGOT_MAIL_URL) {
-      throw new Error('FORGOT_MAIL_URL is missing');
+      throw new AppError('FORGOT_MAIL_URL is missing');
     }
 
     const variables = {
