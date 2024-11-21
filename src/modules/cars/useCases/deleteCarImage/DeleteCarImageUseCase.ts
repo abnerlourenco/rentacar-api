@@ -1,13 +1,15 @@
 import { inject, injectable } from 'tsyringe';
 
-import { deleteFile } from '../../../../utils/file';
+import { IStorageProvider } from '../../../../shared/container/providers/StorageProvider/IStorageProvider';
 import { ICarsImagesRepository } from '../../repositories/ICarsImagesRepository';
 
 @injectable()
 class DeleteCarImageUseCase {
   constructor (
     @inject('CarsImagesRepository')
-    private readonly carsImagesRepository: ICarsImagesRepository
+    private readonly carsImagesRepository: ICarsImagesRepository,
+    @inject('StorageProvider')
+    private readonly storageProvider: IStorageProvider
   ) {}
 
   async execute (image_id: string): Promise<void> {
@@ -21,7 +23,7 @@ class DeleteCarImageUseCase {
     await this.carsImagesRepository.delete(image_id);
 
     // delete the image file
-    await deleteFile(`./tmp/car-images/${image.image_name}`);
+    await this.storageProvider.delete(image.image_name, 'cars');
   }
 }
 
