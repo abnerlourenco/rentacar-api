@@ -35,7 +35,7 @@ class AwsS3StorageProvider implements IStorageProvider {
     await this.client.send(new PutObjectCommand({
       Bucket: `${process.env.AWS_BUCKET_NAME}`,
       Key: `${folder}/${file}`,
-      // ACL: 'public-read-write',
+      ACL: 'public-read-write',
       Body: fileContent,
       ContentType
     })

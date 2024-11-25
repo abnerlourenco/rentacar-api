@@ -19,7 +19,7 @@ class ProfileUserUseCase {
       throw new AppError('User not found');
     }
 
-    return UserMap.toDTO(user);
+    return UserMap(user);
   }
 }
 
