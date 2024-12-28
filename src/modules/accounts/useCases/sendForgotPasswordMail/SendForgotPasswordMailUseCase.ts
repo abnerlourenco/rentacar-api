@@ -17,7 +17,7 @@ class SendForgotPasswordMailUseCase {
     private readonly usersTokensRepository: IUsersTokensRepository,
     @inject('DayJsDateProvider')
     private readonly dateProvider: IDateProvider,
-    @inject('EtherealMailProvider')
+    @inject('MailProvider')
     private readonly mailProvider: IMailProvider
   ) {}
 
